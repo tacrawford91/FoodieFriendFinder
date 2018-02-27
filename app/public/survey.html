@@ -36,7 +36,7 @@
     <hr>
 
     <h3><strong>Question 1</strong></h3>
-    <h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+    <h4>How much do you enjoy broccoli?</h4>
     <select class="chosen-select" id="q1">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -47,7 +47,7 @@
     </select>
 
     <h3><strong>Question 2</strong></h3>
-    <h4>Generally speaking, you rely more on your experience than your imagination.</h4>
+    <h4>How much do you enjoy grilled steak? Any temperature (blue,rare,medium,well, etc.)</h4>
     <select class="chosen-select" id="q2">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -59,7 +59,7 @@
 
 
     <h3><strong>Question 3</strong></h3>
-    <h4>You find it easy to stay relaxed and focused even when there is some pressure.</h4>
+    <h4>I prefer shrimp (any kind) over chicken nuggets</h4>
     <select class="chosen-select" id="q3">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -71,7 +71,7 @@
 
 
     <h3><strong>Question 4</strong></h3>
-    <h4>You rarely do something just out of sheer curiosity.</h4>
+    <h4>I prefer pickles over cucumbers</h4>
     <select class="chosen-select" id="q4">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -83,7 +83,7 @@
 
 
     <h3><strong>Question 5</strong></h3>
-    <h4>People can rarely upset you.</h4>
+    <h4>Chipotle is your life?</h4>
     <select class="chosen-select" id="q5">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -95,7 +95,7 @@
 
 
     <h3><strong>Question 6</strong></h3>
-    <h4>It is often difficult for you to relate to other people’s feelings.</h4>
+    <h4>I have a go-to at all the resturants I frequent.</h4>
     <select class="chosen-select" id="q6">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -107,7 +107,7 @@
 
 
     <h3><strong>Question 7</strong></h3>
-    <h4>In a discussion, truth should be more important than people’s sensitivities.</h4>
+    <h4>I prefer a new appetizer over any of the classics (wings, dips, quesadilla, sliders, etc.).</h4>
     <select class="chosen-select" id="q7">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -118,7 +118,7 @@
     </select>
 
     <h3><strong>Question 8</strong></h3>
-    <h4>You rarely get carried away by fantasies and ideas.</h4>
+    <h4>I prefer a beer or glass of wine over a palate cleanser with my meal.</h4>
     <select class="chosen-select" id="q8">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -129,7 +129,7 @@
     </select>
 
     <h3><strong>Question 9</strong></h3>
-    <h4>You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</h4>
+    <h4>I prefer lobster rolls over dinner rolls. </h4>
     <select class="chosen-select" id="q9">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -140,7 +140,7 @@
     </select>
 
     <h3><strong>Question 10</strong></h3>
-    <h4>You feel more energetic after spending time with a group of people.</h4>
+    <h4>I prefer something spicy over something sweet.</h4>
     <select class="chosen-select" id="q10">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -168,6 +168,41 @@
 
 
   </div>
+<script>
+ 
+$("#submit").on("click", function() {
+    console.log(`test val ${$("#q1").val().trim()}`)
+    var newFriend = {
+        name: $("#name").val().trim(),
+        photo: $("#photo").val().trim(),
+        q1: $("#q1").val(),
+        q2: $("#q2").val(),
+        q3: $("#q3").val(),
+        q4: $("#q4").val(),
+        q5: $("#q5").val(),
+        q6: $("#q6").val(),
+        q7: $("#q7").val(),
+        q8: $("#q8").val(),
+        q9: $("#q9").val(),
+        q10: $("#q10").val(),
+        scores: []
+    }
+    // for (var i = 1; i < 11; i++) {
+    //     newFriend.scores.push(JSON.stringify($(`q${i}`).val()))
+    // }
+    console.log(newFriend);
+    $.ajax({
+        url:"/api/friends",
+        method: "POST",
+        data: newFriend
+    }).done( (response) => {
+    console.log(response); 
+    });
+})
+
+</script>
+
+
 
 </body>
 

@@ -5,12 +5,7 @@ var Friends = require("../data/friends");
 var totalDifference = [];
 var differences = [];
 
-
-// var Troy = new Friends.NewFriend("troy","testphoto", [1,2,3,5,4,6,5,2]);
-
-// Friends.friends.push(Troy);
-
-console.log(Friends.friends);
+// console.log(Friends.friends);
 
 module.exports = function(app) {
     //listen for get request to survey
@@ -22,52 +17,48 @@ module.exports = function(app) {
     //if not survey, send to home
     app.post('/api/friends', function(req,res){
         console.log('friednds post route');
+        // console.log(req.body.scores.split(",").map(x => Number(x)));
         differences = [];
         var newFriendData = req.body;
-        newFriendData.scores = newFriendData.scores.map(x => Number(x));
-        // console.log(newFriendData);
+        var newFriendDataScores = [];
+        newFriendDataScores.push(Number(newFriendData.q1));
+        newFriendDataScores.push(Number(newFriendData.q2));
+        newFriendDataScores.push(Number(newFriendData.q3));
+        newFriendDataScores.push(Number(newFriendData.q4));
+        newFriendDataScores.push(Number(newFriendData.q5));
+        newFriendDataScores.push(Number(newFriendData.q6));
+        newFriendDataScores.push(Number(newFriendData.q7));
+        newFriendDataScores.push(Number(newFriendData.q8));
+        newFriendDataScores.push(Number(newFriendData.q9));
+        newFriendDataScores.push(Number(newFriendData.q10));
+        console.log(`new firdac scores dawg ${newFriendDataScores}`);
+    
+        // var newFriendDataScores = newFriendData.scores.map(x => Number(x));
+        // console.log(newFriendData.scores);
         // console.log(`frinds array ${Friends.friends[0].scores}`);
         if (Friends.friends.length === 0) {
             console.log(Math.abs(0));
-            Friends.friends.push(new Friends.NewFriend(newFriendData.name,newFriendData.photo, newFriendData.scores));
+            Friends.friends.push(new Friends.NewFriend(newFriendData.name,newFriendData.photo, newFriendDataScores));
             res.send("Data added");
         }else {  
+
         Friends.friends.forEach(function(element){
             totalDifference = [];
-            for (var i = 0; i < newFriendData.scores.length; i++) {
-
-                totalDifference.push(Math.abs(newFriendData.scores[i] - element.scores[i]))
+            for (var i = 0; i < newFriendDataScores.length; i++) {
+                 // push the absolute value of each element into Totaldifference array   
+                totalDifference.push(Math.abs(newFriendDataScores[i] - element.scores[i]))
             }
-
-            // newFriendData.scores.forEach(function(element2){
-            //     // console.log(`${element.name}:${element.scores[element2]}`);
-            //     // console.log(`new friend scores${newFriendData.scores[element2]}`);
-            //     // differences.push(Math.abs(newFriendData.scores[element2] - element.scores[element2]));
-
-            //     console.log(element2)
-            //     console.log(element.scores[element2]);
-            //     // console.log( element2)
-            //     // console.log(newFriendData.scores[0])
-            //     differences.push(Math.abs(element2 - element.scores[element2]));
-            //     console.log(Math.abs(element2 - element.scores[element2]));
-            //     console.log(typeof(Math.abs(element2 - element.scores[element2])));
-
-            //     // console.log(newFriendData.scores[element2] - element.scores[element2]);scores
-            // })
-            // console.log(`reduced${totalDifference.reduce((prev,curr) => prev + curr)}`);
+            //push the sum of the differences into the differences array
             differences.push(totalDifference.reduce((prev,curr) => prev + curr));
-        })
-        console.log(Friends.friends);
-        console.log(`differences baby - ${differences}`);
-        // var getIndex = Math.min(...differences);
-        console.log(differences.indexOf(Math.min(...differences)));
-        
+        })           
+        // find the index of the minimum value in the difference array, and find the friend at that index to be matching friend.
         var matchedFriend = Friends.friends[differences.indexOf(Math.min(...differences))]
-        console.log(matchedFriend);
+        console.log(`your match is ${matchedFriend.name}, you two only had ${Math.min(...differences)} differences!`);
+
 
         //add friends to list
-        Friends.friends.push(new Friends.NewFriend(newFriendData.name,newFriendData.photo,newFriendData.scores));
-        res.send(matchedFriend);
+        Friends.friends.push(new Friends.NewFriend(newFriendData.name,newFriendData.photo,newFriendDataScores));
+        res.send(`your match is ${matchedFriend}`);
     }
     });
 };
