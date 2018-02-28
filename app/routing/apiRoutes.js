@@ -32,7 +32,7 @@ module.exports = function(app) {
         newFriendDataScores.push(Number(newFriendData.q9));
         newFriendDataScores.push(Number(newFriendData.q10));
         console.log(`new firdac scores dawg ${newFriendDataScores}`);
-    
+     
         // var newFriendDataScores = newFriendData.scores.map(x => Number(x));
         // console.log(newFriendData.scores);
         // console.log(`frinds array ${Friends.friends[0].scores}`);
