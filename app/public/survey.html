@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>FriendFinder</title>
+  <title>FoodFriendFinder</title>
 
   <!-- Latest compiled and minified CSS & JS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -16,6 +16,44 @@
   <!-- Chosen -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+  <style>
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto; /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; /* Could be more or less, depending on screen size */
+  }
+
+  /* The Close Button */
+  .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+  }
+  </style>
 
 </head>
 
@@ -156,6 +194,14 @@
     <!-- Submit Button -->
     <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>
      Submit</button>
+           <!-- The Modal -->
+           <div id="myModal" class="modal">
+      
+              <!-- Modal content -->
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Some text in the Modal..</p>
+              </div>
 
     <hr>
     <footer class="footer">
@@ -169,37 +215,37 @@
 
   </div>
 <script>
- 
+ var modal = $("#myModal");
+
 $("#submit").on("click", function() {
-    console.log(`test val ${$("#q1").val().trim()}`)
     var newFriend = {
         name: $("#name").val().trim(),
         photo: $("#photo").val().trim(),
-        q1: $("#q1").val(),
-        q2: $("#q2").val(),
-        q3: $("#q3").val(),
-        q4: $("#q4").val(),
-        q5: $("#q5").val(),
-        q6: $("#q6").val(),
-        q7: $("#q7").val(),
-        q8: $("#q8").val(),
-        q9: $("#q9").val(),
-        q10: $("#q10").val(),
-        scores: []
+        scores: [$("#q1").val(),$("#q2").val(),$("#q3").val(),$("#q4").val(),$("#q5").val(),$("#q6").val(),$("#q7").val(),$("#q8").val(),$("#q9").val(),$("#q10").val()]
     }
-    // for (var i = 1; i < 11; i++) {
-    //     newFriend.scores.push(JSON.stringify($(`q${i}`).val()))
-    // }
     console.log(newFriend);
     $.ajax({
         url:"/api/friends",
         method: "POST",
         data: newFriend
     }).done( (response) => {
-    console.log(response); 
-    });
+    // console.log(JSON.stringify(response)); 
+  var newRes = JSON.parse(response)
+
+
+    var name = $("<h2>").text(`Wow! Your Food Friend is ${newRes.name}!`)
+    var diff = $("<h3>").text(`You two only ${newRes.diffDisplay} differences`)
+    var photo = $("img").attr("src", newRes.photo);
+    $(".modal-content").append(name,diff,photo);
+    modal.css("display", "block");
+  })
 })
 
+
+$(".close").on("click", function() {
+  // $(".modal-content").html("");
+  modal.css("display", "none");
+})
 </script>
 
 

@@ -4,12 +4,6 @@ function NewFriend (name,photo,scores) {
     this.scores = scores;
 }
 
-// NewFriend.prototype.compare = function(newUser) {
-//     for(var i = 0; i < 11; i++){ 
-//         let difference = newUser.scores[i] - this.scores[i];
-//         difference = difference+difference; 
-//     }
-// }
 
 var friends = [];
 

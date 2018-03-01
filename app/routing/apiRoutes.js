@@ -7,6 +7,16 @@ var differences = [];
 
 // console.log(Friends.friends);
 
+// generate new friends 
+
+Friends.friends.push(new Friends.NewFriend("Troy","troy.jpg", [1,5,1,5,5,4,3,4,1,5]));
+Friends.friends.push(new Friends.NewFriend("Alyssa","troy.jpg", [2,3,1,5,2,5,3,1,3,2]));
+Friends.friends.push(new Friends.NewFriend("Jane","troy.jpg", [5,2,3,1,4,5,1,1,3,1]));
+Friends.friends.push(new Friends.NewFriend("Andy","troy.jpg", [2,3,1,4,2,2,2,1,5,4]));
+Friends.friends.push(new Friends.NewFriend("Heather","troy.jpg", [2,1,2,4,1,1,2,5,5,5]));
+Friends.friends.push(new Friends.NewFriend("John","troy.jpg", [4,4,2,3,5,5,5,2,1,1]));
+
+
 module.exports = function(app) {
     //listen for get request to survey
     app.get("/api/friends", (req,res) => {
@@ -20,45 +30,36 @@ module.exports = function(app) {
         // console.log(req.body.scores.split(",").map(x => Number(x)));
         differences = [];
         var newFriendData = req.body;
-        var newFriendDataScores = [];
-        newFriendDataScores.push(Number(newFriendData.q1));
-        newFriendDataScores.push(Number(newFriendData.q2));
-        newFriendDataScores.push(Number(newFriendData.q3));
-        newFriendDataScores.push(Number(newFriendData.q4));
-        newFriendDataScores.push(Number(newFriendData.q5));
-        newFriendDataScores.push(Number(newFriendData.q6));
-        newFriendDataScores.push(Number(newFriendData.q7));
-        newFriendDataScores.push(Number(newFriendData.q8));
-        newFriendDataScores.push(Number(newFriendData.q9));
-        newFriendDataScores.push(Number(newFriendData.q10));
-        console.log(`new firdac scores dawg ${newFriendDataScores}`);
-     
-        // var newFriendDataScores = newFriendData.scores.map(x => Number(x));
-        // console.log(newFriendData.scores);
-        // console.log(`frinds array ${Friends.friends[0].scores}`);
+        newFriendData.scores = newFriendData.scores.map(x => Number(x));
+        console.log(`scores bra: ${typeof(newFriendData.scores[0])}`);
+
         if (Friends.friends.length === 0) {
             console.log(Math.abs(0));
-            Friends.friends.push(new Friends.NewFriend(newFriendData.name,newFriendData.photo, newFriendDataScores));
+            Friends.friends.push(new Friends.NewFriend(newFriendData.name,newFriendData.photo, newFriendData.scores));
             res.send("Data added");
         }else {  
 
         Friends.friends.forEach(function(element){
             totalDifference = [];
-            for (var i = 0; i < newFriendDataScores.length; i++) {
+            for (var i = 0; i < newFriendData.scores.length; i++) {
                  // push the absolute value of each element into Totaldifference array   
-                totalDifference.push(Math.abs(newFriendDataScores[i] - element.scores[i]))
+                totalDifference.push(Math.abs(newFriendData.scores[i] - element.scores[i]))
             }
             //push the sum of the differences into the differences array
             differences.push(totalDifference.reduce((prev,curr) => prev + curr));
         })           
         // find the index of the minimum value in the difference array, and find the friend at that index to be matching friend.
         var matchedFriend = Friends.friends[differences.indexOf(Math.min(...differences))]
+        var diffDisplay = Math.min(...differences);
+        matchedFriend.diffDisplay = diffDisplay;
+
         console.log(`your match is ${matchedFriend.name}, you two only had ${Math.min(...differences)} differences!`);
 
-
         //add friends to list
-        Friends.friends.push(new Friends.NewFriend(newFriendData.name,newFriendData.photo,newFriendDataScores));
-        res.send(`your match is ${matchedFriend}`);
+        Friends.friends.push(new Friends.NewFriend(newFriendData.name,newFriendData.photo,newFriendData.scores));
+        console.log(`matched name - - - - - ${matchedFriend}`);
+        console.log(matchedFriend.scores);
+        res.send(`${JSON.stringify(matchedFriend)}`);
     }
     });
 };
