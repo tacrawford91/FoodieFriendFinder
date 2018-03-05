@@ -9,12 +9,12 @@ var differences = [];
 
 // generate new friends 
 
-Friends.friends.push(new Friends.NewFriend("Troy","troy.jpg", [1,5,1,5,5,4,3,4,1,5]));
-Friends.friends.push(new Friends.NewFriend("Alyssa","troy.jpg", [2,3,1,5,2,5,3,1,3,2]));
-Friends.friends.push(new Friends.NewFriend("Jane","troy.jpg", [5,2,3,1,4,5,1,1,3,1]));
-Friends.friends.push(new Friends.NewFriend("Andy","troy.jpg", [2,3,1,4,2,2,2,1,5,4]));
-Friends.friends.push(new Friends.NewFriend("Heather","troy.jpg", [2,1,2,4,1,1,2,5,5,5]));
-Friends.friends.push(new Friends.NewFriend("John","troy.jpg", [4,4,2,3,5,5,5,2,1,1]));
+Friends.friends.push(new Friends.NewFriend("Troy","http://taverninthesquare.com/content/2-locations/7-salem/1-half-price-burgers/half-price-burgers.jpg", [1,5,1,5,5,4,3,4,1,5]));
+Friends.friends.push(new Friends.NewFriend("Alyssa","https://purewows3.imgix.net/images/articles/2016_12/kin_khao_san_francisco_union_square_restaurants.jpg?auto=format,compress&cs=strip", [2,3,1,5,2,5,3,1,3,2]));
+Friends.friends.push(new Friends.NewFriend("Jane","http://nacocentral.com/wp-content/uploads/2017/12/New-Website-Photos-5-of-21-600x300.jpg", [5,2,3,1,4,5,1,1,3,1]));
+Friends.friends.push(new Friends.NewFriend("Andy","http://dining.savannahnow.com/sites/dining.savannahnow.com/files/styles/flexslider_enhanced/public/field/photos/andaz_savannah-swine_and_fowl.jpg?itok=v2_k5RbM", [2,3,1,4,2,2,2,1,5,4]));
+Friends.friends.push(new Friends.NewFriend("Heather","http://taverninthesquare.com/content/5-brunch/brunch-home.jpg", [2,1,2,4,1,1,2,5,5,5]));
+Friends.friends.push(new Friends.NewFriend("John","https://www.yummyhealthyeasy.com/wp-content/uploads/2012/07/skinny-cheesy-pasta-bake-square.jpg", [4,4,2,3,5,5,5,2,1,1]));
 
 
 module.exports = function(app) {

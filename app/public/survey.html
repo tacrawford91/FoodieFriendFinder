@@ -16,7 +16,14 @@
   <!-- Chosen -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+    
+  <!-- bootswatch  -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+
   <style>
+    body {
+      background: #00FF7F;
+    }
     .modal {
       display: none; /* Hidden by default */
       position: fixed; /* Stay in place */
@@ -37,6 +44,7 @@
       padding: 20px;
       border: 1px solid #888;
       width: 80%; /* Could be more or less, depending on screen size */
+      text-align: center;
   }
 
   /* The Close Button */
@@ -53,6 +61,43 @@
       text-decoration: none;
       cursor: pointer;
   }
+  #close {
+    margin-left: 95%;
+    font-size: 50px;
+  }
+   h4 {
+     font-weight: 800;
+     text-shadow: 1px 1px 2px white;
+     font-size: 20px
+  } 
+  select {
+    box-shadow: 0px 4px #34dac2, 0em 11px 0.4em olive;
+    height: 25px;
+    width: 200px;
+    margin-top: 4px;
+    margin-bottom: 20px;
+    border-radius: 7px;
+  }
+  strong {
+    font-weight: bolder;
+    font-size: 26px;
+    text-shadow: 1px 1px 2px white;
+  }
+  #submit {
+    height: 86px;
+    font-size: 55px;
+    background: #34dac2;
+    margin-bottom: 10px;
+  }
+  #submit:hover {
+    background: white;
+    color: black;
+  }
+  img {
+    max-width: 500px;
+    max-height: 500px;
+    margin: 0 auto;
+  }
   </style>
 
 </head>
@@ -68,14 +113,14 @@
     <h4>Name (Required)</h4>
     <input type="text" id="name" class="form-control" required>
 
-    <h4>Link to Photo Image (Required)</h4>
+    <h4>Link to favorite food photo for profile image (Required)</h4>
     <input type="text" id="photo" class="form-control" required>
 
     <hr>
 
     <h3><strong>Question 1</strong></h3>
     <h4>How much do you enjoy broccoli?</h4>
-    <select class="chosen-select" id="q1">
+    <select class="chosen-select" id="q1" required>
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
       <option value="2">2</option>
@@ -199,14 +244,13 @@
       
               <!-- Modal content -->
               <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>Some text in the Modal..</p>
+                <span class="close" id="close">&times;</span>
               </div>
 
     <hr>
     <footer class="footer">
       <div class="container">
-        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/afhaque/friendfinder">GitHub Repo</a></p>
+        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/tacrawford91/FriendFinder">GitHub Repo</a></p>
       </div>
     </footer>
 
@@ -217,29 +261,33 @@
 <script>
  var modal = $("#myModal");
 
+
 $("#submit").on("click", function() {
-    var newFriend = {
-        name: $("#name").val().trim(),
-        photo: $("#photo").val().trim(),
-        scores: [$("#q1").val(),$("#q2").val(),$("#q3").val(),$("#q4").val(),$("#q5").val(),$("#q6").val(),$("#q7").val(),$("#q8").val(),$("#q9").val(),$("#q10").val()]
-    }
-    console.log(newFriend);
-    $.ajax({
-        url:"/api/friends",
-        method: "POST",
-        data: newFriend
-    }).done( (response) => {
-    // console.log(JSON.stringify(response)); 
-  var newRes = JSON.parse(response)
 
-
-    var name = $("<h2>").text(`Wow! Your Food Friend is ${newRes.name}!`)
-    var diff = $("<h3>").text(`You two only ${newRes.diffDisplay} differences`)
-    var photo = $("img").attr("src", newRes.photo);
-    $(".modal-content").append(name,diff,photo);
-    modal.css("display", "block");
-  })
+ if ($("#q1").val() === "" || $("#q2").val() === "" ||$("#q3").val() === "" ||$("#q4").val() === "" ||$("#q5").val() === "" ||$("#q6").val() === "" ||$("#q7").val() === "" ||$("#q8").val() === "" ||$("#q9").val() === "" ||$("#q10").val() === "" || $("#photo").val() === ""|| $("#name").val() === "") {
+   alert("Ooops, some info is missing. PLease check all input fields.")
+ } else {
+      var newFriend = {
+          name: $("#name").val().trim(),
+          photo: $("#photo").val().trim(),
+          scores: [$("#q1").val(),$("#q2").val(),$("#q3").val(),$("#q4").val(),$("#q5").val(),$("#q6").val(),$("#q7").val(),$("#q8").val(),$("#q9").val(),$("#q10").val()]
+      }
+      console.log(newFriend);
+      $.ajax({
+          url:"/api/friends",
+          method: "POST",
+          data: newFriend
+      }).done( (response) => {
+      var newRes = JSON.parse(response)
+      var name = $("<h2>").text(`Wow! Your Foodie Friend is ${newRes.name}!`)
+      var diff = $("<h3>").text(`You two only have ${newRes.diffDisplay} differences`)
+      var photo = $("<img>").attr("src", newRes.photo);
+      $(".modal-content").append(name,diff,photo);
+      modal.css("display", "block");
+    })
+  }
 })
+
 
 
 $(".close").on("click", function() {

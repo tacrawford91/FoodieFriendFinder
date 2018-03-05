@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>FoodFriendFinder</title>
+  <title>FoodieFriendFinder</title>
 
   <!-- Latest compiled and minified CSS & JS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -12,6 +12,31 @@
 
   <!-- Font Awesome Glyphicons -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+  <!-- bootswatch  -->
+  <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+
+<style>
+    body {
+      background: #00FF7F;
+    }
+    .jumbotron{
+      margin-top: 5%;
+    }
+    #button{
+    height: 46px;
+    width: 200px;
+    background: #34dac2;
+    }
+  .btnHolder {
+    text-align: center;
+  }
+  h4 {
+    font-size: 15px;
+    color: white;
+  }
+</style>
 
 </head>
 
@@ -20,21 +45,22 @@
   <div class="container">
 
     <div class="jumbotron">
-      <h1><i class="fa fa-facebook-square" aria-hidden="true"></i> Food Friend Finder</h1>
+      <h1><i class="fab fa-viadeo"></i>Foodie Friend Finder</h1>
       <hr>
-      <h2>Answer a few basic questions about different foods! </h2>
-      <h2>You will then be matched with someone with the same taste of cuisine!</h2>
+      <h2>First: Answer a few questions about your preferences.</h2>
+      <br>
+      <h2>We will then match you with someone who shares the same taste of cuisine - <strong>Your Foodie Friend!</strong></h2>
       <br>
 
-      <div>
-        <a href="/survey"><button type="button" class="btn btn-lg btn-primary"><h4><span class="glyphicon glyphicon-list-alt"></span> Go to Survey</h4></button></a>
+      <div class="btnHolder">
+        <a href="/survey"><button type="button" class="btn btn-lg btn-primary" id="button"><h4><span class="glyphicon glyphicon-list-alt"></span> Go to Survey</h4></button></a>
       </div>
 
     </div>
 
     <footer class="footer">
       <div class="container">
-        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/afhaque/friendfinder">GitHub Repo</a></p>
+        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/tacrawford91/FriendFinder">GitHub Repo</a></p>
       </div>
     </footer>
 
