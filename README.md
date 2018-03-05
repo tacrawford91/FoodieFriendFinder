@@ -1,2 +1,5 @@
-# FrienderFinder
-Answer 10 simple questions and be matched with your next friend. Did we just become best friends?! YUP!
+# FoodieFriendFinder
+
+###### <center> FoodieFrendFinder matches users base on inputs to a survey. Technical skills: JS, JQuery, Node, Express, NPM, JS Constructors</center>
+
+#### Answer 10 questions on food preference and be matched with another user that shares your taste in food! 
